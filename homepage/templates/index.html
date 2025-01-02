@@ -1,0 +1,564 @@
+{% extends 'base.html' %}
+
+{% block title %}עו"ד מאיה סימון{% endblock %}
+
+{% block content %}
+<style>
+    .contact-heading {
+    font-family: Lato, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    display: flex;              /* Enable flexbox layout */
+    flex-direction: column;     /* Stack items vertically */
+    align-items: center;        /* Center items horizontally */
+    justify-content: center;    /* Center items vertically */
+    text-align: center;         /* Center text within each item */
+    height: 200px;              /* Adjust height as needed */
+    line-height: 1.5;           /* Adjust spacing between lines */
+}
+
+
+.contact-heading h2 {
+    margin: 0;                  /* Remove default margin */
+    font-size: 2.5em;           /* Adjust font size */
+}
+
+.contact-heading h1 {
+    margin: 0;                  /* Remove default margin */
+    font-size: 2.5em;             /* Highlight phone number */
+    font-weight: bold;          /* Make it bold for emphasis */
+}
+
+    .showcase-text h1,
+.showcase-text p {
+    margin-top: 0;  /* Remove top margin */
+    margin-bottom: 0;  /* Remove bottom margin */
+}
+
+/* Optionally add spacing if needed */
+.showcase-text h1 {
+    margin-bottom: 10px;
+}
+.showcase-img {
+    background-image: url('/static/assets/img/newlogo.png'); /* Path to your image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Align the image to the center */
+    background-size: cover; /* Ensure the image covers the container */
+}
+
+.testimonials-wrapper {
+    position: relative;
+    overflow: hidden; /* Hide content outside the viewport */
+    width: 100%; /* Full width of the container */
+    height: auto; /* Adjust based on content height */
+}
+
+.testimonials-scroller {
+    display: flex; /* Arrange testimonials in a horizontal row */
+    gap: 20px; /* Space between items */
+    animation: scrollTestimonials 15s linear infinite; /* Infinite scrolling animation */
+}
+
+.testimonial-item {
+    flex: 0 0 auto; /* Prevent resizing */
+    min-width: 300px; /* Fixed width for testimonials */
+    padding: 20px;
+    box-sizing: border-box;
+    background: #f9f9f9;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Infinite scrolling animation */
+@keyframes scrollTestimonials {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* סגנון לאייקון הנגישות */
+#accessibility-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #222;
+    color: #fff;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* סגנון לסרגל הנגישות */
+#accessibility-bar {
+    font-family: Lato, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+#accessibility-bar button {
+    background-color: #fff;
+    border: 1px solid #222;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+}
+
+#accessibility-bar button:hover {
+    background-color: #eee;
+}
+
+.high-contrast {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+.high-contrast a {
+    color: #0ff !important;
+}
+
+.high-contrast .text-white {
+    color: #000 !important;
+}
+
+.high-contrast .showcase-img {
+    filter: invert(1) brightness(1.2);
+}
+@media only screen and (max-width: 768px) {
+    .contact-heading h1,
+    .contact-heading h2 {
+        font-size: 1.2em !important;
+        text-align: center !important;
+}
+
+.showcase-text h1,
+.showcase-text p {
+    font-size: 1em !important;
+    text-align: center !important;
+}
+
+#accessibility-bar {
+    bottom: 20px;
+    left: 10px;
+    width: 90%;
+    flex-direction: column;
+}
+
+#accessibility-bar button {
+    width: 100%;
+}
+}
+
+.high-contrast .features-icons {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+.high-contrast .features-icons h3,
+.high-contrast .features-icons p {
+    color: #fff !important;
+}
+
+.high-contrast .features-icons-icon i {
+    color: #0ff !important; /* אייקונים בולטים */
+}
+
+
+.high-contrast .testimonials {
+background-color: #000 !important; /* רקע שחור */
+color: #fff !important; /* טקסט לבן */
+}
+
+.high-contrast .testimonials h2 {
+    color: #fff !important;
+}
+
+.high-contrast .testimonials-wrapper {
+    background-color: #111 !important; /* רקע כהה לתוכן המתחלף */
+}
+
+.high-contrast .testimonial-item {
+    background-color: #222 !important; /* רקע כהה לכל פריט */
+    color: #fff !important; /* טקסט לבן */
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3) !important; /* צל לבן */
+}
+
+.high-contrast .call-to-action {
+    background-image: none !important; /* ביטול תמונת הרקע */
+    background-color: #000 !important; /* רקע שחור */
+    color: #fff !important; /* טקסט לבן */
+    border: 1px solid #fff; /* מסגרת לבנה */
+}
+
+.high-contrast .call-to-action h2,
+.high-contrast .call-to-action h3,
+.high-contrast .call-to-action p {
+    color: #fff !important; /* טקסט לבן */
+}
+
+.high-contrast .call-to-action input,
+.high-contrast .call-to-action button {
+    background-color: #333 !important; /* רקע כהה */
+    color: #fff !important; /* טקסט לבן */
+    border: 1px solid #fff !important; /* גבול לבן */
+}
+
+.high-contrast .call-to-action input::placeholder {
+    color: #bbb !important; /* טקסט placeholder ברור */
+}
+
+.high-contrast .call-to-action img {
+    display: none !important; /* ביטול הצגת תמונות */
+}
+
+
+</style>
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Favicon-->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<div id="accessibility-icon" onclick="toggleAccessibilityBar()">
+    ♿
+</div>
+<div id="accessibility-bar">
+    <button onclick="adjustTextSize(1)">הגדלת טקסט</button>
+    <button onclick="adjustTextSize(-1)">הקטנת טקסט</button>
+    <button onclick="toggleReadableFont()">שינוי לגופן קריא</button>
+    <button onclick="deleteCookies()">מחיקת עוגיות</button>
+    <button onclick="toggleContrast()">ניגודיות</button>
+</div>
+
+<section class="showcase">
+<div class="row g-0">
+        <div class="col-lg-6 text-white showcase-img"></div>
+        <div class="col-lg-6 my-auto showcase-text">
+        <br>
+            <br>
+            <h1 style="display: flex; flex-direction: column; align-items: center;">זקוקים לעזרה בנושאים צבאיים?</h1>
+            <br>
+            <p class="lead" style="font-size: 1.8em; display: flex; flex-direction: column; align-items: center;">עו"ד מאיה סימון מתמחה בייצוג חיילים, מלש"בים ומשרתי מילואים מול מערכת הביטחון. עם ניסיון רב בתחום, אנו מעניקים ייעוץ וליווי משפטי מקצועי בכל סוגיה צבאית.</p>
+            <br>
+            <br>
+            <div class="contact-heading">
+            <h2>צרו קשר עכשיו ותאמו פגישת ייעוץ</h2>
+                <br>
+            <h1 style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+                054-7631993
+                <a href="https://www.facebook.com/share/1A721tnuCG/?mibextid=wwXIfr" target="_blank" style="text-decoration: none;">
+                    <i class="bi-facebook" style="font-size: 1.5em; color: #4267B2;"></i>
+                </a>
+            </h1>
+
+        </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- Icons Grid-->
+<section class="features-icons bg-light text-center">
+    <div class="container">
+        <h3>תחומי התמחות</h3>
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon mb-5 mb-lg-0 mb-lg-3"><i class="las la-exchange-alt"></i></div>
+                    <h3>שינויי שיבוץ</h3>
+                    <p class="lead mb-0"> התאמת השירות הצבאי לכישוריכם ולצרכיכם</p>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                    <div class="features-icons-icon mb-5 mb-lg-0 mb-lg-3"><i class="las la-notes-medical"></i></div>
+                    <h3>ערעורי פרופיל</h3>
+                    <p class="lead mb-0">סיוע בהעלאת או הורדת פרופיל ושיפור תנאי שירות</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <div class="features-icons-icon mb-5 mb-lg-0 mb-lg-3"><i class="las la-shield-alt"></i></div>
+                    <h3>פטור מילואים</h3>
+                    <p class="lead mb-0">סיוע בקבלת פטור משירות מילואים בגלל בעיות רפואיות, נפשיות או אישיות</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call to Action-->
+<section class="call-to-action text-white text-center" id="signup">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <h2 class="mb-4">אל תתמודדו לבד אל מול המערכת הצבאית!</h2>
+                <h3 class="mb-4"> לשיחת ייעוץ עם עו"ד צבאי השאירו פרטים בטופס</h3>
+                <form id="leadForm" class="form-subscribe" method="POST">
+                    {% csrf_token %}  <!-- CSRF Token -->
+
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control form-control-lg" id="name" name="name" type="text" placeholder="שם מלא" required />
+                            <div class="invalid-feedback">נא למלא שם מלא</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <input class="form-control form-control-lg" id="phone" name="phone" type="text" placeholder="טלפון" required />
+                            <div class="invalid-feedback">נא למלא טלפון</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-auto">
+                            <button class="btn btn-primary btn-lg" id="submitButton" type="submit">שליחה</button>
+                        </div>
+                    </div>
+                    <!-- Success/Error message for user -->
+                    <div class="mt-3">
+                        <p id="formMessage" class="d-none"></p> <!-- Message will appear here -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- Icons Grid-->
+<section class="features-icons bg-light text-center">
+            <div class="container">
+                <h3 class="mb-5">למה לבחור בעו"ד מאיה סימון?</h3>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon"><i class="las la-certificate"></i></div>
+                            <h3>מומחיות</h3>
+                            <p class="lead mb-0">ידע מעמיק בחוקים ובפקודות הצבא</p>
+                        </div>
+                    </div>
+                      <div class="col-lg-3">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon"><i class="las la-balance-scale-left"></i></div>
+                            <h3>ניסיון</h3>
+                            <p class="lead mb-0">שנים של עבודה מול צה"ל ומשרד הביטחון</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon"><i class="las la-user-circle"></i></div>
+                            <h3>יחס אישי</h3>
+                            <p class="lead mb-0">ליווי צמוד ותמיכה לאורך כל התהליך</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                            <div class="features-icons-icon"><i class="las la-phone"></i></div>
+                            <h3>זמינות</h3>
+                            <p class="lead mb-0">מענה מהיר ואפשרות לפגישות מקוונות</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials-->
+<section class="testimonials text-center bg-light">
+    <div class="container">
+        <h2 class="mb-5">לקוחות מספרים על הליווי המקצועי של עו"ד מאיה סימון</h2>
+        <div class="testimonials-wrapper">
+            <div class="testimonials-scroller">
+                <div class="testimonial-item">"עו"ד מאיה סימון ליוותה אותי בתהליך הורדת הפרופיל..."</div>
+                <div class="testimonial-item">"כהורים לחייל, היינו מודאגים כשבננו נתקל בקשיים..."</div>
+                <div class="testimonial-item">"כבן למשפחת מהגרים, נתקלתי בקשיים בירוקרטיים מול הצבא..."</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    document.getElementById('leadForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevents default form submission
+
+    const fullName = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const formMessage = document.getElementById('formMessage');  // You need to define this element if it's used
+
+    // Basic validation to ensure fields are filled
+    if (fullName && phone) {
+        formMessage.classList.remove('d-none');
+        formMessage.innerText = 'שולחים את הנתונים...';
+
+        // Make the AJAX request
+        fetch("{% url 'lead_form' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token here
+            },
+            body: JSON.stringify({
+                name: fullName,
+                phone: phone
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Form submission failed');
+            }
+            return response.json();
+        })
+        .then(data => {
+            formMessage.innerText = data.message;  // Show the message from the server
+            // Optional: Redirect or reset form after success
+            setTimeout(() => {
+                window.location.href = '/';  // Redirect to homepage or another page
+            }, 2000);  // Show message for 2 seconds before redirect
+        })
+        .catch(error => {
+            formMessage.innerText = 'שגיאה בשליחת הפנייה. נסה שוב.';
+            console.error('Error:', error);  // Log any errors
+        });
+    } else {
+        formMessage.classList.remove('d-none');
+        formMessage.innerText = 'נא למלא את כל השדות.';
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const scroller = document.querySelector(".testimonials-scroller");
+    const wrapper = document.querySelector(".testimonials-wrapper");
+
+    // Duplicate testimonials to create a seamless loop
+    const testimonials = Array.from(scroller.children);
+    testimonials.forEach((testimonial) => {
+        const clone = testimonial.cloneNode(true);
+        scroller.appendChild(clone);
+    });
+
+    // Start scrolling
+    const totalWidth = scroller.scrollWidth / 2; // Total width of original items
+    let scrollPosition = 0;
+
+    function scroll() {
+        scrollPosition -= 1; // Adjust speed
+        if (Math.abs(scrollPosition) >= totalWidth) {
+            scrollPosition = 0; // Reset position to simulate seamless loop
+        }
+        scroller.style.transform = `translateX(${scrollPosition}px)`;
+        requestAnimationFrame(scroll);
+    }
+
+    scroll();
+});
+</script>
+<script>
+    let currentFontSize = 16;
+let isReadableFont = false;
+let isHighContrast = false;
+
+function toggleAccessibilityBar() {
+    const bar = document.getElementById('accessibility-bar');
+    bar.style.display = bar.style.display === 'none' ? 'flex' : 'none';
+}
+
+function adjustTextSize(change) {
+    currentFontSize += change;
+    document.querySelectorAll("*").forEach((el) => {
+        const currentSize = window.getComputedStyle(el).fontSize;
+        const newSize = parseFloat(currentSize) + change;
+        el.style.fontSize = `${newSize}px`;
+    });
+}
+
+function toggleReadableFont() {
+    isReadableFont = !isReadableFont;
+    document.body.style.fontFamily = isReadableFont ? 'Arial, sans-serif' : '';
+}
+
+function deleteCookies() {
+    document.cookie.split(";").forEach(function (c) {
+        document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    alert("כל העוגיות נמחקו.");
+}
+
+function toggleContrast() {
+    isHighContrast = !isHighContrast;
+    document.body.classList.toggle("high-contrast", isHighContrast);
+
+    const callToAction = document.querySelector(".call-to-action");
+    if (isHighContrast) {
+        callToAction.style.backgroundImage = "none"; // ביטול תמונת הרקע
+    } else {
+        callToAction.style.backgroundImage = ""; // החזרת תמונת הרקע
+    }
+}
+
+
+
+</script>
+ <footer class="footer bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item"><a href="#!">About</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Contact</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                        </ul>
+                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/static/js/scripts.js"></script>
+        <!-- SB Forms JS-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+{% endblock %}

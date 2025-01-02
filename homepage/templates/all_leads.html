@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %}All Leads{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<style>
+    body {
+        font-family: 'PorscheHeEnFont', sans-serif;
+    }
+
+    .filters-container {
+        margin-top: 150px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 0px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .filters-container select {
+        width: 48%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 0px;
+        font-size: 14px;
+    }
+
+    .table-container {
+
+        width: 130%;
+        margin-top: 20px;
+        margin-left: -15%;
+        margin-right: auto;
+        background-color: #ffffff;
+        border-radius: 0px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+
+    }
+
+    .table th {
+        background-color: #4B79A1;
+        color: white;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    .table td {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .btn-primary {
+        font-weight: normal;
+        background-color: #4B79A1;
+        border: none;
+        border-radius: 0px;
+        padding: 5px 10px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #3A5B80;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination .page-item .page-link {
+        color: #4B79A1;
+        border-radius: 0px;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #4B79A1;
+        border-color: #4B79A1;
+        color: white;
+    }
+
+    .filters-container select {
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <!-- Filters -->
+    <div class="filters-container">
+        <select id="userFilter">
+            <option value="all">כל המשתמשים</option>
+            {% for user in users_with_leads %}
+            <option value="{{ user.username }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+
+        <select id="statusFilter">
+            <option value="all">כל הסטטוסים</option>
+            {% for status in handling_statuses %}
+            <option value="{{ status }}">{{ status }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Leads Table -->
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>סטטוס</th>
+                    <th>רכב בו מעוניין הליד</th>
+                    <th>טלפון</th>
+                    <th>מייל</th>
+                    <th>שם</th>
+                    <th>פלטפורמה</th>
+                    <th>תאריך פנייה</th>
+                    <th>איש מכירות</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody id="leadsTable">
+                {% for lead in page_obj.object_list %}
+                <tr class="lead-row" data-user="{{ lead.picked_by.username }}" data-status="{{ lead.handling_status }}"
+                    {% if lead.returning_customer %} style="color: red; font-weight: bold;"
+                    {% elif lead.is_duplicate %} style="color: red; font-weight: bold;"
+                    {% elif lead.handling_status == "אין מענה" %} style="color: orange; font-weight: bold;"
+                    {% endif %}>
+                    <td><a href="{% url 'lead_detail' lead.id %}" class="btn btn-primary">לצפייה בליד</a></td>
+                    <td>{{ lead.lead_status }}</td>
+                    <td>{{ lead.interested_in }}</td>
+                    <td>{{ lead.phone|format_phone }}</td>
+                    <td>{{ lead.email }}</td>
+                    <td>{{ lead.name }}</td>
+                    <td>{{ lead.category }}</td>
+                    <td> {{ lead.date_received|date:"d-m-Y" }} </td>
+                    <td> {{ lead.picked_by }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="9" class="text-center">אין לידים</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        <nav class="pagination">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}&user={{ user_filter }}&status={{ status_filter }}" aria-label="Previous">
+                &laquo;
+            </a>
+        </li>
+        {% endif %}
+        {% for page_num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
+            <a class="page-link" href="?page={{ page_num }}&user={{ user_filter }}&status={{ status_filter }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}&user={{ user_filter }}&status={{ status_filter }}" aria-label="Next">
+                &raquo;
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userFilter = document.getElementById('userFilter');
+        const statusFilter = document.getElementById('statusFilter');
+        const leadsTable = document.getElementById('leadsTable');
+
+        function filterLeads() {
+            const user = userFilter.value;
+            const status = statusFilter.value;
+
+            // Redirect with filters applied
+            const url = `?user=${user}&status=${status}`;
+            window.location.href = url;
+        }
+
+        userFilter.addEventListener('change', filterLeads);
+        statusFilter.addEventListener('change', filterLeads);
+    });
+</script>
+
+{% endblock %}

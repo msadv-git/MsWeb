@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .navbar {
+    font-family: Lato, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    background-color: #081636 !important; /* Override Bootstrap background */
+    color: white !important; /* Override text color */
+    padding: 5px 15px; /* Reduce padding to make the navbar narrower */ !important; /* Consistent padding */
+    display: flex;
+    justify-content: center; /* Center all items horizontally */
+    align-items: center; /* Center all items vertically */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 50px; /* Set a specific height */
+    line-height: 50px; /* Align content vertically */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
+}
+
+.navbar-brand {
+    position: absolute; /* Take the brand out of the normal flow */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Offset half of its width to truly center */
+}
+
+.navbar-brand img {
+    height: 30px; /* Adjust logo size */
+   vertical-align: middle; /* Align the logo vertically */
+}
+
+.navbar .nav-link {
+    color: white !important; /* Ensure links are white */
+    text-decoration: none !important; /* Remove underline */
+    padding: 10px 15px !important; /* Consistent padding */
+    font-family: 'PorscheHeEnFont', sans-serif;
+    font-size: 16px; /* Adjust font size */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+
+
+.navbar-toggler {
+    background-color: #ffffff; /* Customize toggle button background */
+    border: none; /* Remove border */
+}
+
+.navbar-toggler-icon {
+    background-color: #ffffff; /* Ensure toggle icon is visible */
+}
+
+.navbar-collapse {
+    justify-content: flex-end !important; /* Align links to the right */
+}
+
+/* Dropdown Menu Customization */
+.navbar .dropdown-menu {
+    background-color: #3B4141 !important; /* Match navbar color */
+    border: none !important; /* Remove border */
+}
+
+.navbar .dropdown-item {
+    color: white !important; /* Text color */
+    font-family: 'PorscheHeEnFont', sans-serif;
+    font-size: 16px; /* Adjust font size */
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #555 !important; /* Hover background */
+    color: #ffffff !important; /* Hover text color */
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'qna' %}">שאלות נפוצות</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'services' %}">שירותי המשרד</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">אודות</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">דף הבית</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -24,7 +24,7 @@ ALLOWED_HOSTS = ['www.mayasimonadv.com', 'mayasimonadv.com', '16.171.154.215', '
 SECRET_KEY = 'django-insecure-h-ek7euu6q625g%!is0=koje=%f$uwy%^#e24pig9a58d2v%4@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 # Email configuration

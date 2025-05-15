@@ -23,6 +23,11 @@ ALLOWED_HOSTS = ['www.mayasimonadv.com', 'mayasimonadv.com']
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-h-ek7euu6q625g%!is0=koje=%f$uwy%^#e24pig9a58d2v%4@'
 
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 

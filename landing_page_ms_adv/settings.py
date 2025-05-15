@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ['www.mayasimonadv.com', '50.16.75.53', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['www.mayasimonadv.com', 'mayasimonadv.com', '16.171.154.215', 'localhost', '127.0.0.1']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -24,7 +24,7 @@ ALLOWED_HOSTS = ['www.mayasimonadv.com', '50.16.75.53', 'localhost', '127.0.0.1'
 SECRET_KEY = 'django-insecure-h-ek7euu6q625g%!is0=koje=%f$uwy%^#e24pig9a58d2v%4@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # Email configuration

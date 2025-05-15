@@ -1,564 +1,493 @@
-{% extends 'base.html' %}
 
-{% block title %}עו"ד מאיה סימון{% endblock %}
-
-{% block content %}
-<style>
-    .contact-heading {
-    font-family: Lato, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    display: flex;              /* Enable flexbox layout */
-    flex-direction: column;     /* Stack items vertically */
-    align-items: center;        /* Center items horizontally */
-    justify-content: center;    /* Center items vertically */
-    text-align: center;         /* Center text within each item */
-    height: 200px;              /* Adjust height as needed */
-    line-height: 1.5;           /* Adjust spacing between lines */
-}
-
-
-.contact-heading h2 {
-    margin: 0;                  /* Remove default margin */
-    font-size: 2.5em;           /* Adjust font size */
-}
-
-.contact-heading h1 {
-    margin: 0;                  /* Remove default margin */
-    font-size: 2.5em;             /* Highlight phone number */
-    font-weight: bold;          /* Make it bold for emphasis */
-}
-
-    .showcase-text h1,
-.showcase-text p {
-    margin-top: 0;  /* Remove top margin */
-    margin-bottom: 0;  /* Remove bottom margin */
-}
-
-/* Optionally add spacing if needed */
-.showcase-text h1 {
-    margin-bottom: 10px;
-}
-.showcase-img {
-    background-image: url('/static/assets/img/newlogo.png'); /* Path to your image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    background-position: center; /* Align the image to the center */
-    background-size: cover; /* Ensure the image covers the container */
-}
-
-.testimonials-wrapper {
-    position: relative;
-    overflow: hidden; /* Hide content outside the viewport */
-    width: 100%; /* Full width of the container */
-    height: auto; /* Adjust based on content height */
-}
-
-.testimonials-scroller {
-    display: flex; /* Arrange testimonials in a horizontal row */
-    gap: 20px; /* Space between items */
-    animation: scrollTestimonials 15s linear infinite; /* Infinite scrolling animation */
-}
-
-.testimonial-item {
-    flex: 0 0 auto; /* Prevent resizing */
-    min-width: 300px; /* Fixed width for testimonials */
-    padding: 20px;
-    box-sizing: border-box;
-    background: #f9f9f9;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Infinite scrolling animation */
-@keyframes scrollTestimonials {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-
-/* סגנון לאייקון הנגישות */
-#accessibility-icon {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background-color: #222;
-    color: #fff;
-    font-size: 24px;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-/* סגנון לסרגל הנגישות */
-#accessibility-bar {
-    font-family: Lato, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    position: fixed;
-    bottom: 80px;
-    left: 20px;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1000;
-}
-
-#accessibility-bar button {
-    background-color: #fff;
-    border: 1px solid #222;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Arial', sans-serif;
-}
-
-#accessibility-bar button:hover {
-    background-color: #eee;
-}
-
-.high-contrast {
-    background-color: #000 !important;
-    color: #fff !important;
-}
-
-.high-contrast a {
-    color: #0ff !important;
-}
-
-.high-contrast .text-white {
-    color: #000 !important;
-}
-
-.high-contrast .showcase-img {
-    filter: invert(1) brightness(1.2);
-}
-@media only screen and (max-width: 768px) {
-    .contact-heading h1,
-    .contact-heading h2 {
-        font-size: 1.2em !important;
-        text-align: center !important;
-}
-
-.showcase-text h1,
-.showcase-text p {
-    font-size: 1em !important;
-    text-align: center !important;
-}
-
-#accessibility-bar {
-    bottom: 20px;
-    left: 10px;
-    width: 90%;
-    flex-direction: column;
-}
-
-#accessibility-bar button {
-    width: 100%;
-}
-}
-
-.high-contrast .features-icons {
-    background-color: #000 !important;
-    color: #fff !important;
-}
-
-.high-contrast .features-icons h3,
-.high-contrast .features-icons p {
-    color: #fff !important;
-}
-
-.high-contrast .features-icons-icon i {
-    color: #0ff !important; /* אייקונים בולטים */
-}
-
-
-.high-contrast .testimonials {
-background-color: #000 !important; /* רקע שחור */
-color: #fff !important; /* טקסט לבן */
-}
-
-.high-contrast .testimonials h2 {
-    color: #fff !important;
-}
-
-.high-contrast .testimonials-wrapper {
-    background-color: #111 !important; /* רקע כהה לתוכן המתחלף */
-}
-
-.high-contrast .testimonial-item {
-    background-color: #222 !important; /* רקע כהה לכל פריט */
-    color: #fff !important; /* טקסט לבן */
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3) !important; /* צל לבן */
-}
-
-.high-contrast .call-to-action {
-    background-image: none !important; /* ביטול תמונת הרקע */
-    background-color: #000 !important; /* רקע שחור */
-    color: #fff !important; /* טקסט לבן */
-    border: 1px solid #fff; /* מסגרת לבנה */
-}
-
-.high-contrast .call-to-action h2,
-.high-contrast .call-to-action h3,
-.high-contrast .call-to-action p {
-    color: #fff !important; /* טקסט לבן */
-}
-
-.high-contrast .call-to-action input,
-.high-contrast .call-to-action button {
-    background-color: #333 !important; /* רקע כהה */
-    color: #fff !important; /* טקסט לבן */
-    border: 1px solid #fff !important; /* גבול לבן */
-}
-
-.high-contrast .call-to-action input::placeholder {
-    color: #bbb !important; /* טקסט placeholder ברור */
-}
-
-.high-contrast .call-to-action img {
-    display: none !important; /* ביטול הצגת תמונות */
-}
-
-
-</style>
+{% load static %}
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
 <head>
     <meta charset="utf-8" />
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <!-- Favicon-->
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet">
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/static/css/styles.css" rel="stylesheet">
+    <title>עו"ד מאיה סימון</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #697665;
+            --accent: #2d332d;
+            --light-bg: #f3f4ef;
+            --divider: #e0e5dc;
+            --font-main: 'Assistant', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--accent);
+            background-color: #fff;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        header.hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+            background-color: var(--light-bg);
+        }
+
+        .hero img {
+            max-width: 180px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-top: 10px;
+        }
+
+        .hero .cta-button {
+            margin-top: 30px;
+            padding: 12px 28px;
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 80px 15px;
+        }
+
+        .about {
+        background-color: var(--primary);
+        color: black;
+        font-size: 1.6rem;
+        padding: 80px 20px;
+        font-weight: bold;
+    }
+
+    .about p {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+
+
+        .features-icons {
+            background-color: var(--light-bg);
+        }
+
+        .features-icons i {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .features-icons h3 {
+            margin-bottom: 10px;
+        }
+
+        .features-icons .row {
+            border-top: 1px solid var(--divider);
+            border-bottom: 1px solid var(--divider);
+            padding: 40px 0;
+        }
+
+        form input, form button {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        form button {
+            background-color: var(--primary);
+            border: none;
+        }
+
+        footer {
+            background-color: var(--light-bg);
+            color: #666;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #contact h2,
+        #contact h4 {
+            color: black;
+            font-weight: bold;
+
+        }
+
+        .call-now-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .testimonials {
+            background-color: var(--primary);
+            color: black;
+            padding: 80px 20px;
+            font-size: 1.1rem;
+
+        }
+
+        .testimonials h2 {
+            color: black;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-item {
+            background-color: transparent;
+            padding: 30px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        .top-social-buttons {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        z-index: 1100;
+        display: flex;
+        gap: 12px;
+    }
+
+    .top-social-buttons a {
+        color: black;
+        padding: 24px 26px;
+        font-size: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+
+    @media (max-width: 768px) {
+        .top-social-buttons {
+            top: 15px;
+            right: 15px;
+        }
+    }
+
+.contact-options .d-flex {
+  margin-bottom: 60px;
+}
+
+
+
+        .contact-options p.lead {
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.contact-options li {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+        .contact-options ul {
+  text-align: center;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+
+    </style>
 </head>
-<div id="accessibility-icon" onclick="toggleAccessibilityBar()">
-    ♿
-</div>
-<div id="accessibility-bar">
-    <button onclick="adjustTextSize(1)">הגדלת טקסט</button>
-    <button onclick="adjustTextSize(-1)">הקטנת טקסט</button>
-    <button onclick="toggleReadableFont()">שינוי לגופן קריא</button>
-    <button onclick="deleteCookies()">מחיקת עוגיות</button>
-    <button onclick="toggleContrast()">ניגודיות</button>
+<body>
+
+<div class="top-social-buttons">
+    <a href="https://www.facebook.com/share/1A721tnuCG/?mibextid=wwXIfr" target="_blank"><i class="bi bi-facebook"></i></a>
+        <a href="https://wa.me/972547631993?text=שלום%20עו%22ד%20מאיה%20סימון,%20אני%20זקוק/ה%20לעזרה%20בענייני%20צבא" target="_blank"><i class="bi bi-whatsapp"></i></a>
 </div>
 
-<section class="showcase">
-<div class="row g-0">
-        <div class="col-lg-6 text-white showcase-img"></div>
-        <div class="col-lg-6 my-auto showcase-text">
-        <br>
-            <br>
-            <h1 style="display: flex; flex-direction: column; align-items: center;">זקוקים לעזרה בנושאים צבאיים?</h1>
-            <br>
-            <p class="lead" style="font-size: 1.8em; display: flex; flex-direction: column; align-items: center;">עו"ד מאיה סימון מתמחה בייצוג חיילים, מלש"בים ומשרתי מילואים מול מערכת הביטחון. עם ניסיון רב בתחום, אנו מעניקים ייעוץ וליווי משפטי מקצועי בכל סוגיה צבאית.</p>
-            <br>
-            <br>
-            <div class="contact-heading">
-            <h2>צרו קשר עכשיו ותאמו פגישת ייעוץ</h2>
-                <br>
-            <h1 style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-                054-7631993
-                <a href="https://www.facebook.com/share/1A721tnuCG/?mibextid=wwXIfr" target="_blank" style="text-decoration: none;">
-                    <i class="bi-facebook" style="font-size: 1.5em; color: #4267B2;"></i>
-                </a>
-            </h1>
+<!-- NEW HERO SECTION -->
+<header class="hero">
+    <img src="{% static 'assets/img/logo_hq.png' %}" alt="עו״ד מאיה סימון">
+    <h1>עו״ד מאיה סימון</h1>
+    <p>ליווי משפטי אישי לחיילים, מלש״בים ומשרתי מילואים</p>
+    <a href="#contact" class="cta-button">תיאום פגישת ייעוץ</a>
+</header>
 
-        </div>
-
-        </div>
-
-    </div>
+<!-- NEW ABOUT SECTION -->
+<section class="about">
+    <p>
+        עו״ד מאיה סימון מתמחה בייצוג חיילים, מלש״בים ומשרתי מילואים מול מערכת הביטחון.
+        עם ניסיון רב בליווי תהליכים משפטיים בתחום הצבאי, מאיה משלבת ידע מקצועי, רגישות אישית, וזמינות מלאה לאורך כל הדרך.
+    </p>
 </section>
-<!-- Icons Grid-->
+
+<!-- CONTENT CONTINUES (unchanged from backup) -->
 <section class="features-icons bg-light text-center">
     <div class="container">
-        <h3>תחומי התמחות</h3>
+        <h2 class="mb-5" data-aos="fade-down">תחומי התמחות</h2>
         <div class="row">
-
-            <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                    <div class="features-icons-icon mb-5 mb-lg-0 mb-lg-3"><i class="las la-exchange-alt"></i></div>
-                    <h3>שינויי שיבוץ</h3>
-                    <p class="lead mb-0"> התאמת השירות הצבאי לכישוריכם ולצרכיכם</p>
-                </div>
+            <div class="col-md-4" data-aos="fade-up">
+                <i class="bi bi-arrow-left-right"></i>
+                <h3>שינויי שיבוץ</h3>
+                <p>התאמת השירות הצבאי לכישוריכם ולצרכיכם</p>
             </div>
-
-
-            <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                    <div class="features-icons-icon mb-5 mb-lg-0 mb-lg-3"><i class="las la-notes-medical"></i></div>
-                    <h3>ערעורי פרופיל</h3>
-                    <p class="lead mb-0">סיוע בהעלאת או הורדת פרופיל ושיפור תנאי שירות</p>
-                </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+                <i class="bi bi-file-earmark-medical"></i>
+                <h3>ערעורי פרופיל</h3>
+                <p>סיוע בהעלאת או הורדת פרופיל ושיפור תנאי שירות</p>
             </div>
-
-            <div class="col-lg-4">
-                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                    <div class="features-icons-icon mb-5 mb-lg-0 mb-lg-3"><i class="las la-shield-alt"></i></div>
-                    <h3>פטור מילואים</h3>
-                    <p class="lead mb-0">סיוע בקבלת פטור משירות מילואים בגלל בעיות רפואיות, נפשיות או אישיות</p>
-                </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-shield-lock"></i>
+                <h3>פטור מילואים</h3>
+                <p>סיוע בקבלת פטור משירות מילואים בגלל בעיות רפואיות, נפשיות או אישיות</p>
             </div>
         </div>
     </div>
 </section>
-<!-- Call to Action-->
-<section class="call-to-action text-white text-center" id="signup">
-    <div class="container position-relative">
-        <div class="row justify-content-center">
-            <div class="col-xl-6">
-                <h2 class="mb-4">אל תתמודדו לבד אל מול המערכת הצבאית!</h2>
-                <h3 class="mb-4"> לשיחת ייעוץ עם עו"ד צבאי השאירו פרטים בטופס</h3>
-                <form id="leadForm" class="form-subscribe" method="POST">
-                    {% csrf_token %}  <!-- CSRF Token -->
 
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control form-control-lg" id="name" name="name" type="text" placeholder="שם מלא" required />
-                            <div class="invalid-feedback">נא למלא שם מלא</div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <input class="form-control form-control-lg" id="phone" name="phone" type="text" placeholder="טלפון" required />
-                            <div class="invalid-feedback">נא למלא טלפון</div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-auto">
-                            <button class="btn btn-primary btn-lg" id="submitButton" type="submit">שליחה</button>
-                        </div>
-                    </div>
-                    <!-- Success/Error message for user -->
-                    <div class="mt-3">
-                        <p id="formMessage" class="d-none"></p> <!-- Message will appear here -->
-                    </div>
-                </form>
+<section class="text-center bg-light" id="contact">
+    <div class="container">
+        <h2 data-aos="fade-up">אל תתמודדו לבד מול המערכת הצבאית!</h2>
+        <h4 data-aos="fade-up" data-aos-delay="100">לשיחת ייעוץ עם עו"ד צבאי השאירו פרטים בטופס</h4>
+        <form id="leadForm" method="POST" class="mt-4" data-aos="fade-up" data-aos-delay="200">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input class="form-control form-control-lg" name="name" type="text" placeholder="שם מלא" required />
             </div>
-        </div>
+            <div class="mb-3">
+                <input class="form-control form-control-lg" name="phone" type="text" placeholder="טלפון" required />
+            </div>
+            <button class="btn btn-dark btn-lg" type="submit">שליחה</button>
+            <p id="formMessage" class="mt-3 text-muted"></p>
+        </form>
     </div>
 </section>
-        <!-- Icons Grid-->
+
 <section class="features-icons bg-light text-center">
-            <div class="container">
-                <h3 class="mb-5">למה לבחור בעו"ד מאיה סימון?</h3>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon"><i class="las la-certificate"></i></div>
-                            <h3>מומחיות</h3>
-                            <p class="lead mb-0">ידע מעמיק בחוקים ובפקודות הצבא</p>
-                        </div>
-                    </div>
-                      <div class="col-lg-3">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon"><i class="las la-balance-scale-left"></i></div>
-                            <h3>ניסיון</h3>
-                            <p class="lead mb-0">שנים של עבודה מול צה"ל ומשרד הביטחון</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon"><i class="las la-user-circle"></i></div>
-                            <h3>יחס אישי</h3>
-                            <p class="lead mb-0">ליווי צמוד ותמיכה לאורך כל התהליך</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-                            <div class="features-icons-icon"><i class="las la-phone"></i></div>
-                            <h3>זמינות</h3>
-                            <p class="lead mb-0">מענה מהיר ואפשרות לפגישות מקוונות</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+        <h2 class="mb-5" data-aos="fade-down">למה לבחור בעו"ד מאיה סימון?</h2>
+        <div class="row">
+            <div class="col-md-3" data-aos="fade-up">
+                <i class="bi bi-award"></i>
+                <h3>מומחיות</h3>
+                <p>ידע מעמיק בחוקים ובפקודות הצבא</p>
             </div>
-        </section>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                <i class="bi bi-bookmark-check-fill"></i>
+                <h3>ניסיון</h3>
+                <p>שנים של עבודה מול צה"ל ומשרד הביטחון</p>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-person-circle"></i>
+                <h3>יחס אישי</h3>
+                <p>ליווי צמוד ותמיכה לאורך כל התהליך</p>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <i class="bi bi-phone"></i>
+                <h3>זמינות</h3>
+                <p>מענה מהיר ואפשרות לפגישות מקוונות</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <!-- Testimonials-->
-<section class="testimonials text-center bg-light">
+<section class="contact-options bg-light text-center py-5">
+  <div class="container">
+    <p class="lead fw-bold mb-4">
+      זקוקים לליווי משפטי מקצועי מול גורמי הצבא? אנחנו כאן בשבילכם!
+    </p>
+    <ul class="list-unstyled fw-bold mb-5">
+         <li>✔  הכנה וייצוג מלא מול הגורמים הרלוונטים בצה"ל</li>
+      <li>✔  טיפול מקצועי ומהיר בערעורי פרופיל, שיבוץ ופטורים</li>
+      <li>✔  זמינות מלאה לאורך כל התהליך – עד להשגת התוצאה הרצויה</li>
+    </ul>
+
+    <div class="d-flex justify-content-center gap-4 flex-wrap">
+
+      <a href="https://wa.me/972547631993?text=שלום%20עו%22ד%20מאיה%20סימון,%20אני%20זקוק/ה%20לייעוץ" target="_blank" class="btn btn-dark btn-lg d-flex align-items-center gap-2 px-4">
+        <i class="bi bi-whatsapp"></i> WhatsApp
+      </a>
+         <a href="tel:0547631993" class="btn btn-dark btn-lg d-flex align-items-center gap-2 px-4">
+        <i class="bi bi-telephone"></i> חיוג
+      </a>
+      <a href="https://www.facebook.com/share/1A721tnuCG/?mibextid=wwXIfr" target="_blank" class="btn btn-dark btn-lg d-flex align-items-center gap-2 px-4">
+        <i class="bi bi-facebook"></i> Facebook
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="testimonials text-center">
     <div class="container">
         <h2 class="mb-5">לקוחות מספרים על הליווי המקצועי של עו"ד מאיה סימון</h2>
-        <div class="testimonials-wrapper">
-            <div class="testimonials-scroller">
-                <div class="testimonial-item">"עו"ד מאיה סימון ליוותה אותי בתהליך הורדת הפרופיל..."</div>
-                <div class="testimonial-item">"כהורים לחייל, היינו מודאגים כשבננו נתקל בקשיים..."</div>
-                <div class="testimonial-item">"כבן למשפחת מהגרים, נתקלתי בקשיים בירוקרטיים מול הצבא..."</div>
+        <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- קבוצה ראשונה של עדויות -->
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">"עו"ד סימון ליוותה אותי בתהליך הורדת הפרופיל. היא הייתה זמינה עבורי בכל שלב, הסבירה את התהליך בבהירות והפגינה מקצועיות רבה. בזכותה, הצלחתי לקבל את הפרופיל המתאים לי. ממליץ בחום!"</p>
+                                <p>רון פ.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">
+"לא ידעתי שאפשר בכלל לבקש שינוי שיבוץ. עו"ד מאיה סימון לא רק הסבירה לי את הזכויות שלי – היא גם השיגה תוצאה מצוינת תוך זמן קצר."
+                                    </p>
+                                <p>אורן מ.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">"כבן למשפחת מהגרים, נתקלתי בקשיים בירוקרטיים מול הצבא. עו"ד סימון לא רק טיפלה בענייני המשפטיים, אלא גם הבינה את הרגישויות התרבותיות. הליווי הצמוד והזמינות הגבוהה שלה עשו את כל ההבדל. תודה רבה!"</p>
+                                <p>אלכס מ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- קבוצה שנייה של עדויות -->
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">"עו"ד סימון טיפלה בבקשה שלי ברגישות וביעילות. קיבלתי את הפטור ממילואים והרגשתי שיש מי שנלחם עבורי."</p>
+                                <p>יואב ש.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">
+                                    "כהורים לחייל, היינו מודאגים כשבננו נתקל בקשיים בשיבוץ. עו"ד סימון טיפלה בעניין ברגישות ובמסירות. היא הבינה את המורכבות של המערכת הצבאית והצליחה להשיג עבורנו שינוי שיבוץ. יחסה האישי והמקצועי היה מעל ומעבר"
+                                    </p>
+                                <p>משפחת כהן</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">"בתור מלש"בית עם רקע רפואי מורכב, הייתי לחוצה מאוד מהשיבוץ. עו״ד סימון הסבירה כל שלב, הייתה זמינה לכל שאלה והובילה לתוצאה מעולה."</p>
+                                <p>רוני ד.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- קבוצה שלישית של עדויות -->
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">"היא לא רק עורכת דין, היא מלווה אנושית אמיתית. אני כל כך מודה לה על כל מה שעשתה עבורי"</p>
+                                <p>גלית ק.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">
+                                    "כל מה שניסיתי לבד – נדחה. עו״ד סימון ידעה לא רק איזה מסמכים דרושים, אלא גם איך להציג אותם מול המערכת. בזכותה קיבלתי את ההתאמה שהייתי צריך."
+                                    </p>
+                                <p>יואב ר.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="testimonial-item mx-auto">
+                                <p class="font-weight-light mb-0">"בזכות מאיה קיבלתי את ההכרה המיוחלת בצבא. היא עורכת דין מדהימה ואישה נפלאה!"</p>
+                                <p>אורן ל.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- חצים לניווט -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 </section>
 
+<footer>
+    <p>&copy; 2024 עו"ד מאיה סימון</p>
+</footer>
 
+<a href="tel:0547631993" class="call-now-btn">📞 התקשרו עכשיו </a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-    document.getElementById('leadForm').addEventListener('submit', function(event) {
-    event.preventDefault();  // Prevents default form submission
+    AOS.init();
 
-    const fullName = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const formMessage = document.getElementById('formMessage');  // You need to define this element if it's used
+    document.getElementById('leadForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = this.name.value;
+        const phone = this.phone.value;
+        const msg = document.getElementById('formMessage');
+        msg.textContent = 'שולחים את הנתונים...';
 
-    // Basic validation to ensure fields are filled
-    if (fullName && phone) {
-        formMessage.classList.remove('d-none');
-        formMessage.innerText = 'שולחים את הנתונים...';
-
-        // Make the AJAX request
         fetch("{% url 'lead_form' %}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token here
+                'X-CSRFToken': '{{ csrf_token }}'
             },
-            body: JSON.stringify({
-                name: fullName,
-                phone: phone
-            })
+            body: JSON.stringify({ name, phone })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Form submission failed');
-            }
-            return response.json();
-        })
+        .then(res => res.json())
         .then(data => {
-            formMessage.innerText = data.message;  // Show the message from the server
-            // Optional: Redirect or reset form after success
-            setTimeout(() => {
-                window.location.href = '/';  // Redirect to homepage or another page
-            }, 2000);  // Show message for 2 seconds before redirect
+            msg.textContent = data.message || 'נשלח בהצלחה!';
         })
-        .catch(error => {
-            formMessage.innerText = 'שגיאה בשליחת הפנייה. נסה שוב.';
-            console.error('Error:', error);  // Log any errors
+        .catch(() => {
+            msg.textContent = 'שגיאה בשליחה.';
         });
-    } else {
-        formMessage.classList.remove('d-none');
-        formMessage.innerText = 'נא למלא את כל השדות.';
-    }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const scroller = document.querySelector(".testimonials-scroller");
-    const wrapper = document.querySelector(".testimonials-wrapper");
-
-    // Duplicate testimonials to create a seamless loop
-    const testimonials = Array.from(scroller.children);
-    testimonials.forEach((testimonial) => {
-        const clone = testimonial.cloneNode(true);
-        scroller.appendChild(clone);
     });
-
-    // Start scrolling
-    const totalWidth = scroller.scrollWidth / 2; // Total width of original items
-    let scrollPosition = 0;
-
-    function scroll() {
-        scrollPosition -= 1; // Adjust speed
-        if (Math.abs(scrollPosition) >= totalWidth) {
-            scrollPosition = 0; // Reset position to simulate seamless loop
-        }
-        scroller.style.transform = `translateX(${scrollPosition}px)`;
-        requestAnimationFrame(scroll);
-    }
-
-    scroll();
-});
 </script>
-<script>
-    let currentFontSize = 16;
-let isReadableFont = false;
-let isHighContrast = false;
 
-function toggleAccessibilityBar() {
-    const bar = document.getElementById('accessibility-bar');
-    bar.style.display = bar.style.display === 'none' ? 'flex' : 'none';
-}
-
-function adjustTextSize(change) {
-    currentFontSize += change;
-    document.querySelectorAll("*").forEach((el) => {
-        const currentSize = window.getComputedStyle(el).fontSize;
-        const newSize = parseFloat(currentSize) + change;
-        el.style.fontSize = `${newSize}px`;
-    });
-}
-
-function toggleReadableFont() {
-    isReadableFont = !isReadableFont;
-    document.body.style.fontFamily = isReadableFont ? 'Arial, sans-serif' : '';
-}
-
-function deleteCookies() {
-    document.cookie.split(";").forEach(function (c) {
-        document.cookie = c
-            .replace(/^ +/, "")
-            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-    alert("כל העוגיות נמחקו.");
-}
-
-function toggleContrast() {
-    isHighContrast = !isHighContrast;
-    document.body.classList.toggle("high-contrast", isHighContrast);
-
-    const callToAction = document.querySelector(".call-to-action");
-    if (isHighContrast) {
-        callToAction.style.backgroundImage = "none"; // ביטול תמונת הרקע
-    } else {
-        callToAction.style.backgroundImage = ""; // החזרת תמונת הרקע
-    }
-}
-
-
-
-</script>
- <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="/static/js/scripts.js"></script>
-        <!-- SB Forms JS-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-{% endblock %}
+</body>
+</html>

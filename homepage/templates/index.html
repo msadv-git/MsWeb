@@ -78,20 +78,26 @@
             padding: 80px 15px;
         }
 
-        .about {
-        background-color: var(--primary);
-        color: black;
-        font-size: 1.6rem;
-        padding: 80px 20px;
-        font-weight: bold;
-    }
+  .about {
+  background-color: var(--primary);
+  color: black;
+  font-size: 1.6rem;
+  padding: 80px 20px;
+  font-weight: bold;
+}
 
-    .about p {
-        max-width: 1000px;
-        margin: 0 auto;
-        text-align: center;
-         margin-bottom: 0.1em;
-    }
+.spacer-full {
+  height: 1.6rem; /* גובה של שורה מלאה לפי גודל הפונט */
+}
+
+.spacer-half {
+  height: 0.8rem; /* חצי שורה */
+}
+
+.indented {
+  padding-right: 2em; /* הזחה עדינה מימין אם תרצי */
+}
+
 
 
 
@@ -252,7 +258,7 @@
     <img src="{% static 'assets/img/logo_hq.png' %}" alt="עו״ד מאיה סימון">
     <h1>עו״ד מאיה סימון</h1>
     <p>ליווי משפטי אישי לחיילים, מלש״בים ומשרתי מילואים</p>
-    <a href="#contact" class="cta-button">תיאום פגישת ייעוץ</a>
+    <a href="tel:0547631993" class="cta-button">תיאום פגישת ייעוץ</a>
 </header>
 
 <!-- NEW ABOUT SECTION -->
@@ -260,11 +266,19 @@
   <p>
     עו״ד מאיה סימון מתמחה בייצוג חיילים, מלש״בים ומשרתי מילואים מול מערכת הביטחון.
   </p>
-  <p>
-    עם ניסיון רב בליווי תהליכים משפטיים בתחום הצבאי, מאיה משלבת ידע מקצועי, רגישות אישית, וזמינות מלאה לאורך כל הדרך.
+
+  <div class="spacer-full"></div> <!-- רווח של שורה שלמה -->
+
+  <p class="indented">
+    עם ניסיון רב בליווי תהליכים משפטיים ובירוקרטיים בתחום הצבאי,
+  </p>
+
+  <div class="spacer-half"></div> <!-- רווח של חצי שורה -->
+
+  <p class="indented">
+    מאיה משלבת ידע מקצועי, רגישות אישית, וזמינות מלאה לאורך כל הדרך.
   </p>
 </section>
-
 
 
 <!-- CONTENT CONTINUES (unchanged from backup) -->
@@ -356,7 +370,7 @@
          <a href="tel:0547631993" class="btn btn-dark btn-lg d-flex align-items-center gap-2 px-4">
         <i class="bi bi-telephone"></i> חיוג
       </a>
-      <a href="https://www.facebook.com/share/1A721tnuCG/?mibextid=wwXIfr" target="_blank" class="btn btn-dark btn-lg d-flex align-items-center gap-2 px-4">
+      <a href="https://www.facebook.com/profile.php?id=61564513404115" target="_blank" class="btn btn-dark btn-lg d-flex align-items-center gap-2 px-4">
         <i class="bi bi-facebook"></i> Facebook
       </a>
     </div>
